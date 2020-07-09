@@ -3,9 +3,6 @@
 
 https://tryhackme.com/room/gatekeeper
 
-10.10.80.3 
-
-
 ## Nmap
 
 ```sh
@@ -52,9 +49,9 @@ L'envoi de plus de 200 caractères A fait planter le programme, ce qui confirme 
 
 ## C'est quoi un bufferoverflow ?
 
-Le fonctionnement général d'un buffer overflow est de faire crasher un programme en écrivant dans un buffer plus de données qu'il ne peut en contenir (un buffer est un zone mémoire temporaire utilisée par une application) dans le but d'écraser des parties du code de l'application et d'injecter des données utiles pour exploiter le crash de l'application. 
+"Le fonctionnement général d'un buffer overflow est de faire crasher un programme en écrivant dans un buffer plus de données qu'il ne peut en contenir (un buffer est un zone mémoire temporaire utilisée par une application) dans le but d'écraser des parties du code de l'application et d'injecter des données utiles pour exploiter le crash de l'application."
 
-De base, il n'y a pas de mécanisme qui vérifie que la quantité de données a écrire en mémoire ne dépasse pas la quantité maximum réservée. C'est au programme de s'assurer de cette vérification.
+"De base, il n'y a pas de mécanisme qui vérifie que la quantité de données a écrire en mémoire ne dépasse pas la quantité maximum réservée. C'est au programme de s'assurer de cette vérification."
 
 ## Quelques notions nécessaires !
 
@@ -364,9 +361,6 @@ Cette technique est appelée `NOPSLED` (Suite de NOP)
 On y est presque !
 
 On remplace les "C" par notre shellcode et ajoute quelques NOP avant au cas ou.
-
-
-
 
 
 
