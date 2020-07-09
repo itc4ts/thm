@@ -313,8 +313,7 @@ esp = "C" * 351
 +------+ |
 ```
 
-
-### Etape 4 : Quelle valeur mettre dans l'EIP ?!
+### Etape 5 : Quelle valeur mettre dans l'EIP ?!
 
 Il ne reste plus qu'a trouver l'adresse du début de notre buffer et l'écrire dans EIP ... 
 Hummm ... c'est pas si simple ... c'est sans compter sur ASLR et DEP !
@@ -371,11 +370,10 @@ On remplace les "C" par note shellcode, en ajouter quelques NOP avant au cas ou.
 
 
 
-
-
-https://www.cybersecpadawan.com/2020/05/official-gatekeeper-writeup-my-first.html
-https://m0chan.github.io/2019/08/20/Simple-Win32-Buffer-Overflow-EIP-Overwrite.html
-https://hacktion.be/premier-buffer-overflow/
-https://www.securiteinfo.com/attaques/hacking/buff.shtml
-https://resources.infosecinstitute.com/in-depth-seh-exploit-writing-tutorial-using-ollydbg/#gref
-https://bulbsecurity.com/finding-bad-characters-with-immunity-debugger-and-mona-py/
+## Sources:
+* https://www.cybersecpadawan.com/2020/05/official-gatekeeper-writeup-my-first.html
+* https://m0chan.github.io/2019/08/20/Simple-Win32-Buffer-Overflow-EIP-Overwrite.html
+* https://hacktion.be/premier-buffer-overflow/
+* https://www.securiteinfo.com/attaques/hacking/buff.shtml
+* https://resources.infosecinstitute.com/in-depth-seh-exploit-writing-tutorial-using-ollydbg/#gref
+* https://bulbsecurity.com/finding-bad-characters-with-immunity-debugger-and-mona-py/
