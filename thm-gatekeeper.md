@@ -352,18 +352,18 @@ buffer += "\xc3\x14\x04\x08"
 
 #### Et s'il n'y à pas d'ASLR ni de DEP ?!
 
-Trouver l’adresse exacte du début du shellcode est assez fastidieux mais, comme nous sommes fainéants, nous allons ruser et nous faciliter le travail : sur un processeur Intel x86, l’instruction 0x90 (ou NOP pour « No OPeration ») est une instruction qui ne fait pour ainsi dire rien du tout et passe à l’instruction suivante. L’idée est de placer un certain nombre de cette instruction avant le shellcode. Ainsi, il nous suffit de « tomber » sur une de ces instructions pour « glisser » vers le shellcode. Ca nous facilitera la vie car on ne devra plus trouver le début exact du shellcode, sauter sur une de ces instructions 0x90 suffira.
+"Trouver l’adresse exacte du début du shellcode est assez fastidieux mais, comme nous sommes fainéants, nous allons ruser et nous faciliter le travail : sur un processeur Intel x86, l’instruction 0x90 (ou NOP pour « No OPeration ») est une instruction qui ne fait pour ainsi dire rien du tout et passe à l’instruction suivante. L’idée est de placer un certain nombre de cette instruction avant le shellcode. Ainsi, il nous suffit de « tomber » sur une de ces instructions pour « glisser » vers le shellcode. Ca nous facilitera la vie car on ne devra plus trouver le début exact du shellcode, sauter sur une de ces instructions 0x90 suffira."
 
 Cette technique est appelée `NOPSLED` (Suite de NOP)
 
-En effet, cela va nous éviter de devoir chercher à l’octet près le début de notre shellcode. Nous avons juste besoin de sauter quelque part parmi les xxx NOP.Pour rappel, le NOP correspond à l’instruction 0x90 (sous Linux en tout cas), il faut donc trouver dans la mémoire une suite de 90 : c’est très probablement notre NOPSLED.
+"En effet, cela va nous éviter de devoir chercher à l’octet près le début de notre shellcode. Nous avons juste besoin de sauter quelque part parmi les xxx NOP.Pour rappel, le NOP correspond à l’instruction 0x90 (sous Linux en tout cas), il faut donc trouver dans la mémoire une suite de 90 : c’est très probablement notre NOPSLED."
 
 
 ### Etape 6 : Exploit & loot !
 
 On y est presque !
 
-On remplace les "C" par note shellcode, en ajouter quelques NOP avant au cas ou.
+On remplace les "C" par notre shellcode et ajoute quelques NOP avant au cas ou.
 
 
 
